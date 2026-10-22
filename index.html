@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carta · La Posada del Tío Bargueño</title>
+    <meta name="description" content="Carta de Bar La Posada del Tío Bargueño">
+    <style>
+        :root {
+            /* Para adaptar el diseño a otro bar, cambia solo estos tres colores */
+            --marron: #5a3a22;
+            --dorado: #b8923a;
+            --fondo: #ffffff;
+            --suave: #7a6552;
+            --linea: #e6dccb;
+            color-scheme: light;
+            box-sizing: border-box;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--fondo);
+            color: var(--marron);
+            font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .envoltorio {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 18px;
+        }
+
+        header {
+            padding: 22px 0 8px;
+        }
+
+        .marco {
+            text-align: center;
+            padding: 22px 16px 20px;
+            border: 4px double var(--dorado);
+            outline: 1px solid var(--dorado);
+            outline-offset: 4px;
+        }
+
+        .previo {
+            margin: 0;
+            font-size: .95rem;
+            color: var(--suave);
+            letter-spacing: .04em;
+        }
+
+        h1 {
+            margin: 4px 0 0;
+            font: italic 700 2rem/1.15 "Iowan Old Style", Georgia, "Times New Roman", serif;
+            color: var(--marron);
+        }
+
+        .adorno {
+            margin: 10px 0 8px;
+            color: var(--dorado);
+            letter-spacing: .5em;
+            font-size: .8rem;
+        }
+
+        .lema {
+            margin: 0;
+            color: var(--suave);
+            font-size: .95rem;
+        }
+
+        .datos {
+            margin: 12px 0 0;
+            padding: 0;
+            list-style: none;
+            font-size: .9rem;
+            color: var(--suave);
+        }
+
+        .datos li+li {
+            margin-top: 2px;
+        }
+
+        .datos a {
+            color: var(--marron);
+            font-weight: 600;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            background: var(--fondo);
+            border-bottom: 1px solid var(--linea);
+            margin-top: 14px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 8px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            list-style: none;
+            max-width: 640px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        nav ul::-webkit-scrollbar {
+            display: none;
+        }
+
+        nav a {
+            display: block;
+            white-space: nowrap;
+            text-decoration: none;
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--dorado);
+            color: var(--marron);
+            font-size: .92rem;
+        }
+
+        nav a:hover {
+            background: var(--marron);
+            color: #fff;
+            border-color: var(--marron);
+        }
+
+        nav a:focus-visible,
+        .datos a:focus-visible {
+            outline: 3px solid var(--marron);
+            outline-offset: 2px;
+        }
+
+        section {
+            padding-top: 28px;
+            scroll-margin-top: 56px;
+        }
+
+        h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 4px;
+            font: italic 700 1.45rem/1.2 "Iowan Old Style", Georgia, "Times New Roman", serif;
+        }
+
+        h2::after {
+            content: "";
+            flex: 1;
+            border-top: 1px solid var(--dorado);
+        }
+
+        .nota-seccion {
+            margin: 0 0 6px;
+            color: var(--suave);
+            font-size: .9rem;
+        }
+
+        ul.items {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .item {
+            padding: 11px 0;
+            border-bottom: 1px dotted var(--linea);
+        }
+
+        .item:last-child {
+            border-bottom: 0;
+        }
+
+        .fila {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        .nombre {
+            flex: 1;
+            font: italic 600 1.05rem/1.35 "Iowan Old Style", Georgia, "Times New Roman", serif;
+        }
+
+        .precio {
+            font-variant-numeric: tabular-nums;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .desc {
+            margin: 1px 0 0;
+            color: var(--suave);
+            font-size: .9rem;
+        }
+
+        footer {
+            margin-top: 36px;
+            padding: 20px 0 48px;
+            border-top: 4px double var(--dorado);
+            color: var(--suave);
+            font-size: .85rem;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0 0 6px;
+        }
+
+        footer p.destacado {
+            color: var(--marron);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="envoltorio">
+            <div class="marco">
+                <p class="previo" id="previo"></p>
+                <h1 id="nombre"></h1>
+                <p class="adorno" aria-hidden="true">◆ ◆ ◆</p>
+                <p class="lema" id="lema"></p>
+                <ul class="datos" id="datos"></ul>
+            </div>
+        </div>
+    </header>
+
+    <nav aria-label="Secciones de la carta">
+        <ul id="indice"></ul>
+    </nav>
+
+    <main class="envoltorio" id="carta">
+        <noscript>Activa JavaScript para ver la carta.</noscript>
+    </main>
+
+    <footer>
+        <div class="envoltorio" id="pie"></div>
+    </footer>
+
+    <script>
+        /* ============================================================
+           ADAPTAR A CADA BAR: edita solo este bloque.
+           - "precio" puede ser un número (12) o un texto ("4 / 5").
+           - "desc" y "nota" son opcionales.
+           - "horario" es una lista de líneas.
+           ============================================================ */
+        const CARTA = {
+            previo: "Bar",
+            nombre: "La Posada del Tío Bargueño",
+            lema: "Raciones, hamburguesas, tostas y bocadillos",
+            telefono: "675 733 101",
+            direccion: "",
+            horario: [
+                "Miércoles: 13:00 a 18:00",
+                "Jueves a domingo: 13:00 a 18:00 y 20:30 a 00:00",
+                "Lunes y martes: cerrado"
+            ],
+            avisoPie: [
+                {texto: "Cada ingrediente extra: +0,50 €", destacado: true},
+                {texto: "Precios con IVA incluido."},
+                {texto: "Si tienes alguna alergia o intolerancia, avisa al personal antes de pedir."}
+            ],
+            secciones: [
+                {
+                    titulo: "Raciones",
+                    items: [
+                        {nombre: "Calamares", precio: 12},
+                        {nombre: "Tabla de patatas", precio: 10},
+                        {nombre: "Pollo kentaky", precio: 12},
+                        {nombre: "Jamón y queso", precio: 15},
+                        {nombre: "Moruno", precio: 12},
+                        {nombre: "Oreja a la plancha", precio: 12},
+                        {nombre: "Higaditos a la plancha", precio: 10},
+                        {nombre: "Flor de alcachofas", precio: 12},
+                        {nombre: "Mollejas de cordero", precio: 17},
+                        {nombre: "Croquetas variadas", precio: 10},
+                        {nombre: "Costillar bbq", precio: 15},
+                        {nombre: "Ensalada de ahumados", precio: 10},
+                        {nombre: "Lomo de orza", precio: 12},
+                        {nombre: "Tabla de quesos", precio: 15},
+                        {nombre: "Torreznos", precio: 12},
+                        {nombre: "Calamar a la plancha", precio: 18},
+                        {nombre: "Puntillitas rebozadas", precio: 14}
+                    ]
+                },
+                {
+                    titulo: "Hamburguesas",
+                    items: [
+                        {nombre: "Pollo rebozado", desc: "Lechuga y tomate", precio: 8},
+                        {nombre: "Carne", desc: "Lechuga y tomate", precio: 8},
+                        {nombre: "Carne con queso de cabra", precio: 8},
+                        {nombre: "Completa", desc: "Carne, lechuga, tomate, queso, bacon y huevo", precio: 10}
+                    ]
+                },
+                {
+                    titulo: "Tostas",
+                    items: [
+                        {nombre: "Salmón y queso crema", precio: 5.5},
+                        {nombre: "Jamón", precio: 5.5}
+                    ]
+                },
+                {
+                    titulo: "Montados y bocadillos",
+                    nota: "Montado / Bocadillo",
+                    items: [
+                        {nombre: "Calamares", precio: "4 / 5"},
+                        {nombre: "Jamón", precio: "5 / 6"},
+                        {nombre: "Magreta con tomate", precio: "4 / 5"},
+                        {nombre: "Bacon y queso", precio: "4 / 5"},
+                        {nombre: "Lomo y queso", precio: "4 / 5"},
+                        {nombre: "Panceta", precio: "4 / 5"},
+                        {nombre: "Salmón y queso crema", precio: "5 / 6"}
+                    ]
+                }
+            ]
+        };
+
+        /* ---------- A partir de aquí no hace falta tocar nada ---------- */
+        const euros = n => n.toLocaleString("es-ES", {
+            minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
+            maximumFractionDigits: 2
+        });
+        const formatear = p => (typeof p === "number" ? euros(p) : String(p)) + " €";
+        const el = (tag, clase, texto) => {
+            const e = document.createElement(tag);
+            if (clase) e.className = clase;
+            if (texto !== undefined) e.textContent = texto;
+            return e;
+        };
+        const slug = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+        document.title = "Carta · " + CARTA.nombre;
+        document.getElementById("previo").textContent = CARTA.previo || "";
+        document.getElementById("nombre").textContent = CARTA.nombre;
+        document.getElementById("lema").textContent = CARTA.lema || "";
+
+        const datos = document.getElementById("datos");
+        (CARTA.horario || []).forEach(h => datos.append(el("li", "", h)));
+        if (CARTA.direccion) datos.append(el("li", "", CARTA.direccion));
+        if (CARTA.telefono) {
+            const li = el("li");
+            const a = el("a", "", "Tel. " + CARTA.telefono);
+            a.href = "tel:" + CARTA.telefono.replace(/\s+/g, "");
+            li.append(a);
+            datos.append(li);
+        }
+
+        const indice = document.getElementById("indice");
+        const main = document.getElementById("carta");
+        main.querySelector("noscript")?.remove();
+
+        CARTA.secciones.forEach(s => {
+            const id = slug(s.titulo);
+            const li = el("li");
+            const a = el("a", "", s.titulo);
+            a.href = "#" + id;
+            li.append(a);
+            indice.append(li);
+
+            const sec = el("section");
+            sec.id = id;
+            sec.append(el("h2", "", s.titulo));
+            if (s.nota) sec.append(el("p", "nota-seccion", s.nota));
+            const ul = el("ul", "items");
+            s.items.forEach(it => {
+                const item = el("li", "item");
+                const fila = el("div", "fila");
+                fila.append(el("span", "nombre", it.nombre));
+                if (it.precio !== undefined) fila.append(el("span", "precio", formatear(it.precio)));
+                item.append(fila);
+                if (it.desc) item.append(el("p", "desc", it.desc));
+                ul.append(item);
+            });
+            sec.append(ul);
+            main.append(sec);
+        });
+
+        const pie = document.getElementById("pie");
+        (CARTA.avisoPie || []).forEach(t => pie.append(el("p", t.destacado ? "destacado" : "", t.texto)));
+    </script>
+</body>
+
+</html>
